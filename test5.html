@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Roller</title>
+  <style>
+    /* Add some basic styles */
+    .dice {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+      margin: 5px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dice Roller</h1>
+  <div id="diceContainer">
+    <!-- Create 12 dice -->
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+    <div class="dice">1</div>
+  </div>
+
+  <button onclick="rollDice()">Roll Dice</button>
+
+  <div>
+    <h2>Occurrences and Probabilities</h2>
+    <table border="1">
+      <tr>
+        <th>Number</th>
+        <th>Occurrences</th>
+        <th>Probability (%)</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td id="count1">0</td>
+        <td id="prob1">0</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td id="count2">0</td>
+        <td id="prob2">0</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td id="count3">0</td>
+        <td id="prob3">0</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td id="count4">0</td>
+        <td id="prob4">0</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td id="count5">0</td>
+        <td id="prob5">0</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td id="count6">0</td>
+        <td id="prob6">0</td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    function rollDice() {
+      var diceElements = document.querySelectorAll('.dice');
+      var counts = [0, 0, 0, 0, 0, 0];
+
+      diceElements.forEach(function(dice) {
+        var randomNumber = getRandomNumber(1, 6);
+        dice.textContent = randomNumber;
+        counts[randomNumber - 1]++;
+      });
+
+      // Update the table with occurrences and probabilities
+      var totalRolls = diceElements.length;
+      for (var i = 0; i < counts.length; i++) {
+        var countElement = document.getElementById('count' + (i + 1));
+        var probElement = document.getElementById('prob' + (i + 1));
+
+        countElement.textContent = counts[i];
+        var probability = (counts[i] / totalRolls) * 100;
+        probElement.textContent = probability.toFixed(2);
+      }
+    }
+
+    function getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+</body>
+</html>
